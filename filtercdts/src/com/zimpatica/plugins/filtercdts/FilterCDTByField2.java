@@ -18,7 +18,7 @@ public class FilterCDTByField2{
 	private static final Logger LOG = Logger.getLogger(FilterCDTByField2.class);
 	
 	@Function
-	public static TypedValue filtercdtbyfield2(TypeService ts, @Parameter @Name("field") String paramString, @Parameter @Name("cdt") TypedValue dictionary, @Parameter @Name("value") String valueParam) {
+	public static TypedValue filtercdtbyfield2(TypeService ts, @Parameter @Name("field") String paramString, @Parameter @Name("cdt") TypedValue dictionary, @Parameter @Name("value") TypedValue valueParam) {
 	    Long type = dictionary.getInstanceType();
 	    
 	    Object value = dictionary.getValue();
@@ -39,7 +39,8 @@ public class FilterCDTByField2{
 				 if(keyMap.containsKey(paramString)) {
 					 TypedValue keyTypedValue = keyMap.get(paramString);
 					 TypedValue mapValue = map.get(keyTypedValue);
-					 if(mapValue.getValue().toString().equals(valueParam)) {
+					 
+					 if(mapValue.getValue().toString().equals(valueParam.getValue().toString())) {
 						 indices.add(i);
 					 }
 				 }
