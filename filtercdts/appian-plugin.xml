@@ -1,8 +1,8 @@
 <appian-plugin name="Filter CDTs Plugin"
-	key="com.zimpatica.plugins.MichelleTestPlugin">
+	key="com.zimpatica.plugins.filtercdts">
 
 	<plugin-info>
-		<description>XML Tools</description>
+		<description>Filter CDTs</description>
 		<vendor name="Zimpatica" url="http://www.zimpatica.com" />
 		<version>1.0.0</version>
 		<application-version min="17.1" />
