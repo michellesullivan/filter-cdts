@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+
 @Category("category.name.AppianScriptingFunctions")
 public class FilterCDTByField{
 	private static final Logger LOG = Logger.getLogger(FilterCDTByField.class);
@@ -23,12 +24,15 @@ public class FilterCDTByField{
 	    Long type = dictionary.getInstanceType();
 	    Object value = dictionary.getValue();
 	    ArrayList<Integer> indices = new ArrayList<Integer>();
+	    
 	    if ((type.longValue() == 57L) || (value == null) || ("".equals(value))) {
 	      return null;
 	    }
+	    
 		ArrayList<HashMap<TypedValue, TypedValue>> a = new ArrayList(Arrays.asList((HashMap[])ts.cast(Long.valueOf(194L), dictionary).getValue()));
 
 		for(int i = 0; i < a.size(); i++) {
+		
 			
 			 HashMap<TypedValue,TypedValue> map = (HashMap<TypedValue,TypedValue>)a.get(i);
 			 
@@ -37,7 +41,7 @@ public class FilterCDTByField{
 			 if(keyMap.containsKey(paramString)) {
 				 TypedValue keyTypedValue = keyMap.get(paramString);
 				 TypedValue mapValue = map.get(keyTypedValue);
-				 
+
 				 if(mapValue.getValue().toString().equals(valueParam.getValue().toString())) {
 					 indices.add(i);
 				 }
@@ -57,11 +61,5 @@ public class FilterCDTByField{
 
 		}
 	}
-	  public static TypedValue toDictionaryList(ArrayList<HashMap<TypedValue, TypedValue>> toCast) throws InvalidTypeException {
-		    try {
-		      return new TypedValue(Long.valueOf(194L), toCast.toArray(new HashMap[toCast.size()])); } catch (Exception e) {
-		    }
-		    throw new InvalidTypeException("Could not cast result to list of dictionary");
-		  }
 }
 
