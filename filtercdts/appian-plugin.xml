@@ -1,0 +1,12 @@
+<appian-plugin name="Filter CDTs Plugin"
+	key="com.zimpatica.plugins.MichelleTestPlugin">
+
+	<plugin-info>
+		<description>XML Tools</description>
+		<vendor name="Zimpatica" url="http://www.zimpatica.com" />
+		<version>1.0.0</version>
+		<application-version min="17.1" />
+	</plugin-info>
+	<function key="filterCDTByField"
+		class="com.zimpatica.plugins.filtercdts.FilterCDTByField" />
+</appian-plugin>
