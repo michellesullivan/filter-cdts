@@ -18,9 +18,11 @@ public class FilterCDTByField2{
 	private static final Logger LOG = Logger.getLogger(FilterCDTByField2.class);
 	
 	@Function
-	public static TypedValue filtercdtbyfield(TypeService ts, @Parameter @Name("field") String paramString, @Parameter @Name("cdt") TypedValue dictionary, @Parameter @Name("value") String valueParam) {
+	public static TypedValue filtercdtbyfield2(TypeService ts, @Parameter @Name("field") String paramString, @Parameter @Name("cdt") TypedValue dictionary, @Parameter @Name("value") String valueParam) {
 	    Long type = dictionary.getInstanceType();
+	    
 	    Object value = dictionary.getValue();
+	    
 	    ArrayList<Integer> indices = new ArrayList<Integer>();
 	    if ((type.longValue() == 57L) || (value == null) || ("".equals(value))) {
 	      return null;
@@ -29,19 +31,14 @@ public class FilterCDTByField2{
 			ArrayList<HashMap<TypedValue, TypedValue>> a = new ArrayList(Arrays.asList((HashMap[])ts.cast(Long.valueOf(194L), dictionary).getValue()));
 
 			for(int i = 0; i < a.size(); i++) {
+				
 				 HashMap<TypedValue,TypedValue> map = (HashMap<TypedValue,TypedValue>)a.get(i);
-				 HashMap<String,TypedValue> keyMap = new HashMap<String,TypedValue>();
-				 ArrayList<String> keyStrings = new ArrayList<String>();
-				 for(Object key : map.keySet()) {
-					 TypedValue key_value = (TypedValue)key;
-					 keyStrings.add(key_value.getValue().toString());
-					 keyMap.put(key_value.getValue().toString(), key_value);
-				 }
-					 
-				 if(keyStrings.contains(paramString)) {
-					 TypedValue keyvalue = keyMap.get(paramString);
-					 TypedValue mapValue = (TypedValue)map.get(keyvalue);
-					 
+				 
+				 HashMap<String,TypedValue> keyMap = HelperFunctions.getKeyMapFromHashMap(map);
+				 
+				 if(keyMap.containsKey(paramString)) {
+					 TypedValue keyTypedValue = keyMap.get(paramString);
+					 TypedValue mapValue = map.get(keyTypedValue);
 					 if(mapValue.getValue().toString().equals(valueParam)) {
 						 indices.add(i);
 					 }
