@@ -19,7 +19,7 @@ public class FilterCDTByField{
 	private static final Logger LOG = Logger.getLogger(FilterCDTByField.class);
 	
 	@Function
-	public static TypedValue filtercdtbyfield(TypeService ts, @Parameter @Name("field") String paramString, @Parameter @Name("cdt") TypedValue dictionary, @Parameter @Name("value") String valueParam) {
+	public static TypedValue filtercdtbyfield(TypeService ts, @Parameter @Name("field") String paramString, @Parameter @Name("cdt") TypedValue dictionary, @Parameter @Name("value") TypedValue valueParam) {
 	    Long type = dictionary.getInstanceType();
 	    Object value = dictionary.getValue();
 	    ArrayList<Integer> indices = new ArrayList<Integer>();
@@ -37,7 +37,8 @@ public class FilterCDTByField{
 			 if(keyMap.containsKey(paramString)) {
 				 TypedValue keyTypedValue = keyMap.get(paramString);
 				 TypedValue mapValue = map.get(keyTypedValue);
-				 if(mapValue.getValue().toString().equals(valueParam)) {
+				 
+				 if(mapValue.getValue().toString().equals(valueParam.getValue().toString())) {
 					 indices.add(i);
 				 }
 			 }
