@@ -7,6 +7,8 @@
 		<version>1.0.0</version>
 		<application-version min="17.1" />
 	</plugin-info>
-	<function key="filterCDTByField"
+	<function key="filtercdtbyfield"
 		class="com.zimpatica.plugins.filtercdts.FilterCDTByField" />
+	<function key="filterdictionarybyfield"
+		class="com.zimpatica.plugins.filtercdts.FilterDictionaryByField" />
 </appian-plugin>
