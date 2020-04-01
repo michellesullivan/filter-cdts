@@ -15,18 +15,18 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 @Category("category.name.LogicalFunctions")
-public class FilterCDTByField{
-	private static final Logger LOG = Logger.getLogger(FilterCDTByField.class);
+public class FilterDictionaryByField{
+	private static final Logger LOG = Logger.getLogger(FilterDictionaryByField.class);
 	
 	@Function
-	public static TypedValue filtercdtbyfield(TypeService ts, @Parameter @Name("field") String paramString, @Parameter @Name("cdt") TypedValue dictionary, @Parameter @Name("value") String valueParam) {
+	public static TypedValue filterdictionarybyfield(TypeService ts, @Parameter @Name("field") String paramString, @Parameter @Name("dictionary") TypedValue dictionary, @Parameter @Name("value") String valueParam) {
 	    Long type = dictionary.getInstanceType();
 	    Object value = dictionary.getValue();
 	    ArrayList<Integer> indices = new ArrayList<Integer>();
 	    if ((type.longValue() == 57L) || (value == null) || ("".equals(value))) {
 	      return null;
 	    }
-//		if (type.longValue() == 194L) {
+		if (type.longValue() == 194L) {
 
 			ArrayList<HashMap<TypedValue, TypedValue>> a = new ArrayList(Arrays.asList((HashMap[])ts.cast(Long.valueOf(194L), dictionary).getValue()));
 
@@ -62,12 +62,13 @@ public class FilterCDTByField{
 					int index = indices.get(z);
 					newMap.add(a.get(index));
 				}
-				return ts.cast(Long.valueOf(type), toDictionaryList(newMap));
+
+				return toDictionaryList(newMap);
 
 			}
-//		}
+		}
 		
-//		return null;
+		return null;
 	}
 	  public static TypedValue toDictionaryList(ArrayList<HashMap<TypedValue, TypedValue>> toCast) throws InvalidTypeException {
 		    try {
