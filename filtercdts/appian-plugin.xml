@@ -9,8 +9,6 @@
 	</plugin-info>
 	<function key="filtercdtbyfield"
 		class="com.zimpatica.plugins.filtercdts.FilterCDTByField" />
-	<function key="filterdictionarybyfield"
-		class="com.zimpatica.plugins.filtercdts.FilterDictionaryByField" />
 	<function key="filtercdtbyfield2"
 		class="com.zimpatica.plugins.filtercdts.FilterCDTByField2" />
 </appian-plugin>
