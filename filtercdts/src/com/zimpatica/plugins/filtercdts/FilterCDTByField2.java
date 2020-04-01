@@ -57,9 +57,7 @@ public class FilterCDTByField2{
 				return ts.cast(Long.valueOf(type), HelperFunctions.toDictionaryList(newMap));
 
 			}
-//		}
-		
-//		return null;
+
 	}
 }
 

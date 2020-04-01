@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-@Category("category.name.LogicalFunctions")
+@Category("category.name.AppianScriptingFunctions")
 public class FilterCDTByField{
 	private static final Logger LOG = Logger.getLogger(FilterCDTByField.class);
 	
@@ -26,45 +26,35 @@ public class FilterCDTByField{
 	    if ((type.longValue() == 57L) || (value == null) || ("".equals(value))) {
 	      return null;
 	    }
-//		if (type.longValue() == 194L) {
+		ArrayList<HashMap<TypedValue, TypedValue>> a = new ArrayList(Arrays.asList((HashMap[])ts.cast(Long.valueOf(194L), dictionary).getValue()));
 
-			ArrayList<HashMap<TypedValue, TypedValue>> a = new ArrayList(Arrays.asList((HashMap[])ts.cast(Long.valueOf(194L), dictionary).getValue()));
-
-			for(int i = 0; i < a.size(); i++) {
-				 HashMap map = (HashMap)a.get(i);
-				 HashMap<String,TypedValue> keyMap = new HashMap<String,TypedValue>();
-				 ArrayList<String> keyStrings = new ArrayList<String>();
-				 for(Object key : map.keySet()) {
-					 TypedValue key_value = (TypedValue)key;
-					 keyStrings.add(key_value.getValue().toString());
-					 keyMap.put(key_value.getValue().toString(), key_value);
+		for(int i = 0; i < a.size(); i++) {
+			
+			 HashMap<TypedValue,TypedValue> map = (HashMap<TypedValue,TypedValue>)a.get(i);
+			 
+			 HashMap<String,TypedValue> keyMap = HelperFunctions.getKeyMapFromHashMap(map);
+			 
+			 if(keyMap.containsKey(paramString)) {
+				 TypedValue keyTypedValue = keyMap.get(paramString);
+				 TypedValue mapValue = map.get(keyTypedValue);
+				 if(mapValue.getValue().toString().equals(valueParam)) {
+					 indices.add(i);
 				 }
-					 
-				 if(keyStrings.contains(paramString)) {
-					 TypedValue keyvalue = keyMap.get(paramString);
-					 TypedValue mapValue = (TypedValue)map.get(keyvalue);
-					 
-					 if(mapValue.getValue().toString().equals(valueParam)) {
-						 indices.add(i);
-					 }
-				 }
+			 }
 
+		}
+		if(indices.isEmpty()) {
+			return null;
+		}
+		else {
+			ArrayList<HashMap<TypedValue, TypedValue>> newMap = new ArrayList<HashMap<TypedValue,TypedValue>>();
+			for(int z = 0; z<indices.size(); z++) {
+				int index = indices.get(z);
+				newMap.add(a.get(index));
 			}
-			if(indices.isEmpty()) {
-				return null;
-			}
-			else {
-				ArrayList<HashMap<TypedValue, TypedValue>> newMap = new ArrayList<HashMap<TypedValue,TypedValue>>();
-				for(int z = 0; z<indices.size(); z++) {
-					int index = indices.get(z);
-					newMap.add(a.get(index));
-				}
-				return ts.cast(Long.valueOf(type), toDictionaryList(newMap));
+			return ts.cast(Long.valueOf(type), HelperFunctions.toDictionaryList(newMap));
 
-			}
-//		}
-		
-//		return null;
+		}
 	}
 	  public static TypedValue toDictionaryList(ArrayList<HashMap<TypedValue, TypedValue>> toCast) throws InvalidTypeException {
 		    try {
